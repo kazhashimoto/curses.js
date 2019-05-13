@@ -1859,6 +1859,47 @@ function DungeonLevel(win) {
 		return false;
 	};
 	
+	// eat something
+	function isEdible(o) {
+		return (o.type === OC_FOOD);
+	}
+	
+	function eat_done(cart, data) {
+		let o = cart[0];	// multi-select not allowed
+		eat_it(o);
+	}
+	
+	function eat_it(o) {
+		console.log('### eat_it');
+		var key = o.key;
+	}
+	
+	this.doEat = function(key) {
+		var selected = [];
+		var count = countInventory(isEdible);
+		if (!count) {
+			putLine("You don't have anything to eat.");
+			return false;
+		}
+		const md = {
+			// title: '',
+			fixed_key: true,
+			multi_select: false,
+			filter: isEdible,
+			callback: eat_done
+		};
+		if (browseInventory(key, this.doEat, 'What do you want to eat?', selected, md)) {
+			return true;
+		}
+		if (_browse_status < 0) {
+			return false;
+		}
+		let o = selected[0];
+		eat_it(o);
+		return false;
+	};
+	
+	
 	this.flushMessages = function() {
 		const prompt = '--More--';
 		if (!_queued_msg.length) {

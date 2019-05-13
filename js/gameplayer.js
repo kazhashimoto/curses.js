@@ -47,6 +47,9 @@ function GamePlayer(win) {
 			case 'd':
 				_dlev.doDrop(key);
 				break;
+			case 'e':
+				_dlev.doEat(key);
+				break;
 			case 'i':
 				_dlev.doInventory(key);
 				break;
