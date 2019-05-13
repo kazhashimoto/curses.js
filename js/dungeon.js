@@ -1661,11 +1661,11 @@ function DungeonLevel(win) {
 		return (o.type === OC_SCROLL || o.type === OC_SPELLBOOK);
 	}
 	
-	function countReadable() {
+	function countInventory(check_func) {
 		var count = 0;
 		for (let key in _player.inv_slot) {
 			let o = _player.inv_slot[key];
-			if (o && isReadable(o)) {
+			if (o && check_func(o)) {
 				count++;
 			}
 		}
@@ -1698,7 +1698,7 @@ function DungeonLevel(win) {
 	
 	this.doRead = function(key) {
 		var selected = [];
-		var count = countReadable();
+		var count = countInventory(isReadable);
 		if (!count) {
 			putLine("You don't have anything to read.");
 			return false;
@@ -1794,20 +1794,9 @@ function DungeonLevel(win) {
 		var key = o.key;
 	}
 	
-	function countDrinkable() {
-		var count = 0;
-		for (let key in _player.inv_slot) {
-			let o = _player.inv_slot[key];
-			if (o && isDrinkable(o)) {
-				count++;
-			}
-		}
-		return count;
-	}
-	
 	this.doDrink = function(key) {
 		var selected = [];
-		var count = countDrinkable();
+		var count = countInventory(isDrinkable);
 		if (!count) {
 			putLine("You don't have anything to drink.");
 			return false;
