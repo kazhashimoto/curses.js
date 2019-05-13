@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>無題ドキュメント</title>
+<link href="css/curses.css" rel="stylesheet" media="all">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pluralize/7.0.0/pluralize.min.js"></script>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div id="control">
+			<button id="btn-1" type="button">Button 1</button>
+		</div>
+		<div id="h-ruler"><div id="v-ruler"></div></div>
+		<div id="tty"></div>
+		<div id="tty-width" style="visibility: hidden"><span></span></div>
+	</div>
+	
+	<script src="js/curses.js"></script>
+	<script src="js/keybd.js"></script>
+	<script src="js/dungeon.js"></script>
+	<script src="js/taskmgr.js"></script>
+	<script src="js/gameplayer.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			setTTYWidth();
+			showHRuler();
+			showVRuler();
+			
+			var tty = new Tty('tty');
+			tty.initScreen();
+			var win = new Curses(tty);
+			var game = new GamePlayer(win);
+			game.start();
+			
+			function setTTYWidth() {
+				var span = document.querySelector('#tty-width span');
+				for (let i = 0; i < 80; i++) {
+					span.textContent += 'A';
+				}
+				var width = span.offsetWidth;
+				console.log('TTY width=' + width);
+				var tty = document.getElementById('tty');
+				tty.style.width = width + 'px';
+			}
+			
+			function showHRuler() {
+				var ruler = document.getElementById('h-ruler');
+				var p1 = document.createElement('p');
+				var p2 = document.createElement('p');
+				p1.classList.add('line');
+				p2.classList.add('line');
+				for (let i = 0; i < 80; i++) {
+					let ch = i % 10;
+					if (ch === 0) {
+						let d = Math.floor(i / 10);
+						p1.textContent += d;
+					} else {
+						p1.textContent += ' ';
+					}
+					p2.textContent += ch;
+				}
+				ruler.appendChild(p1);
+				ruler.appendChild(p2);
+			}
+			
+			function showVRuler() {
+				var ruler = document.getElementById('v-ruler');
+				var tmp = document.createDocumentFragment();
+				for (let row = 0; row < 24; row++) {
+					let p = document.createElement('p');
+					p.classList.add('line');
+					p.textContent = row;
+					tmp.appendChild(p);
+				}
+				ruler.appendChild(tmp);
+			}
+			
+			document.getElementById('btn-1').addEventListener('click', function() {
+			}, false);
+			
+			document.addEventListener('keydown', function(ev) {
+				switch (ev.key) {
+					case 'Control':
+					case 'Shift':
+					case 'Alt':
+					case 'Meta':
+					case 'CapsLock':
+					case 'Tab':
+						return;
+				}
+				game.command(ev);
+			}, false);
+
+		}, false);
+	
+	</script>
+</body>
+</html>
