@@ -50,6 +50,9 @@ function GamePlayer(win) {
 			case 'i':
 				_dlev.doInventory(key);
 				break;
+			case 'q':
+				_dlev.doDrink(key);
+				break;
 			case 'r':
 				_dlev.doRead(key);
 				break;
