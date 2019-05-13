@@ -56,6 +56,9 @@ function GamePlayer(win) {
 			case 'r':
 				_dlev.doRead(key);
 				break;
+			case 'z':
+				_dlev.doZap(key);
+				break;
 			case ',':
 				_dlev.doPickup(key);
 				break;

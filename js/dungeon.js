@@ -1819,6 +1819,46 @@ function DungeonLevel(win) {
 		return false;
 	};
 	
+	// zap a wand
+	function isWand(o) {
+		return (o.type === OC_WAND);
+	}
+	
+	function zap_done(cart, data) {
+		let o = cart[0];	// multi-select not allowed
+		zap_it(o);
+	}
+	
+	function zap_it(o) {
+		console.log('### zap_it');
+		var key = o.key;
+	}
+	
+	this.doZap = function(key) {
+		var selected = [];
+		var count = countInventory(isWand);
+		if (!count) {
+			putLine("You don't have anything to zap.");
+			return false;
+		}
+		const md = {
+			// title: '',
+			fixed_key: true,
+			multi_select: false,
+			filter: isWand,
+			callback: zap_done
+		};
+		if (browseInventory(key, this.doDrink, 'What do you want to zap?', selected, md)) {
+			return true;
+		}
+		if (_browse_status < 0) {
+			return false;
+		}
+		let o = selected[0];
+		zap_it(o);
+		return false;
+	};
+	
 	this.flushMessages = function() {
 		const prompt = '--More--';
 		if (!_queued_msg.length) {
