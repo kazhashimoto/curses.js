@@ -1848,7 +1848,7 @@ function DungeonLevel(win) {
 			filter: isWand,
 			callback: zap_done
 		};
-		if (browseInventory(key, this.doDrink, 'What do you want to zap?', selected, md)) {
+		if (browseInventory(key, this.doZap, 'What do you want to zap?', selected, md)) {
 			return true;
 		}
 		if (_browse_status < 0) {
