@@ -2206,8 +2206,6 @@ function DungeonLevel(win) {
 			str = getSymbolName(o.type) + ' of ' + o.cname;
 		} else if (o.type === OC_RING) {
 			str = enchanted + getSymbolName(o.type) + ' of ' + o.cname;
-		} else if (o.type === OC_GEM || o.type === OC_ROCK || o.type === OC_STONE) {
-			str = x_pluralize(o.cname, o.qty);
 		} else {
 			str = x_pluralize(o.cname, o.qty);
 		}
