@@ -70,7 +70,7 @@ const CN_EGG = Symbol('egg');
 const CN_POTION_SICKNESS = Symbol('sickness');
 // Scrolls
 const CN_SCROLL_IDENTIFY = Symbol('identify');
-const CN_SCROLL_GOLD_DETECTION = Symbol('gold detection');
+const CN_SCROLL_CREATE_MONSTER = Symbol('create monster');
 // Spellbooks
 const CN_SPELL_EXTRA_HEALING = Symbol('extra healing');
 const CN_SPELL_REMOVE_CURSE = Symbol('remove curse');
@@ -109,7 +109,7 @@ const obj_class = [
 	{ type: OC_FOOD, sym: '%', color: 'color-organic', group: 'Comestibles',
 		item: [ { cname: CN_CANDY_BAR }, { cname: CN_FOOD_RATION }, { cname: CN_WOLFSBANE }, { cname: CN_GARLIC }, { cname: CN_EGG } ]},
 	{ type: OC_SCROLL, sym: '?', color: 'color-paper', group: 'Scrolls',
-		item: [ { cname: CN_SCROLL_IDENTIFY }, { cname: CN_SCROLL_GOLD_DETECTION } ]},
+		item: [ { cname: CN_SCROLL_IDENTIFY }, { cname: CN_SCROLL_CREATE_MONSTER } ]},
 	{ type: OC_SPELLBOOK, sym: '+', color: 'color-paper', group: 'Spellbooks',
 		item: [ { cname: CN_SPELL_EXTRA_HEALING }, { cname: CN_SPELL_LIGHT }, { cname: CN_SPELL_REMOVE_CURSE } ]},
 	{ type: OC_POTION, sym: '!', color: 'any', group: 'Potions',
@@ -1724,7 +1724,8 @@ function DungeonLevel(win) {
 	
 	function scroll_effect(o) {
 		switch (o.cname_type) {
-			case CN_SCROLL_GOLD_DETECTION:
+			case CN_SCROLL_CREATE_MONSTER:
+				_self.createMonsters();
 				break;
 			case CN_SCROLL_IDENTIFY:
 				_queued_msg.push('This is an identify scroll.');
@@ -2097,7 +2098,7 @@ function DungeonLevel(win) {
 			{ type: OC_ARMOR, cname: CN_LEATHER_ARMOR, enchanted: [0, 1], worn: true },
 			{ type: OC_FOOD, cname: CN_FOOD_RATION, qty: [1, 3] },
 			{ type: OC_FOOD, cname: CN_GARLIC, qty: [1, 3] },
-			{ type: OC_SCROLL, cname: CN_SCROLL_GOLD_DETECTION },
+			{ type: OC_SCROLL, cname: CN_SCROLL_CREATE_MONSTER },
 			{ type: OC_SPELLBOOK, cname: CN_SPELL_EXTRA_HEALING },
 			{ type: OC_POTION, cname: CN_POTION_SICKNESS },
 			{ type: OC_RING, cname: CN_RING_COLD_RES, enchanted: 0 },
@@ -2822,6 +2823,7 @@ function DungeonLevel(win) {
 		const list = [
 			{ type: OC_GOLD, cname: CN_GOLD, qty: [1, 20], known_level: 1 },
 			{ type: OC_SCROLL, cname: CN_SCROLL_IDENTIFY, known_level: 1 },
+			{ type: OC_SCROLL, cname: CN_SCROLL_CREATE_MONSTER, known_level: 1 },
 			{ type: OC_GEM, cname: CN_GEM_DIAMOND, qty: [1, 5] },
 			{ type: OC_ROCK, cname: CN_ROCK, qty: [1, 5] },
 			{ type: OC_STONE, cname: CN_LUCKSTONE, qty: [1, 5] }
