@@ -65,6 +65,7 @@ const CN_CANDY_BAR = Symbol('candy bar');
 const CN_WOLFSBANE = Symbol('sprig of wolfsbane');
 const CN_GARLIC = Symbol('clove of garlic');
 const CN_FOOD_RATION = Symbol('food ration');
+const CN_EGG = Symbol('egg');
 // Potions
 const CN_POTION_SICKNESS = Symbol('sickness');
 // Scrolls
@@ -106,7 +107,7 @@ const obj_class = [
 	{ type: OC_ARMOR, sym: '[', color: 'c-brown', group: 'Armor',
 		item: [ { cname: CN_LEATHER_ARMOR } ]},
 	{ type: OC_FOOD, sym: '%', color: 'color-organic', group: 'Comestibles',
-		item: [ { cname: CN_CANDY_BAR }, { cname: CN_FOOD_RATION }, { cname: CN_WOLFSBANE }, { cname: CN_GARLIC } ]},
+		item: [ { cname: CN_CANDY_BAR }, { cname: CN_FOOD_RATION }, { cname: CN_WOLFSBANE }, { cname: CN_GARLIC }, { cname: CN_EGG } ]},
 	{ type: OC_SCROLL, sym: '?', color: 'color-paper', group: 'Scrolls',
 		item: [ { cname: CN_SCROLL_IDENTIFY }, { cname: CN_SCROLL_GOLD_DETECTION } ]},
 	{ type: OC_SPELLBOOK, sym: '+', color: 'color-paper', group: 'Spellbooks',
@@ -1878,13 +1879,16 @@ function DungeonLevel(win) {
 		}
 		let rotten = (getRandomInt(0,100) < 10);
 		if (rotten) {
-			str = 'Blecch!  Rotten food!';
-			// Ugh.  Rotten egg.
-		} else {
-			if (o.cname_type === CN_GARLIC) {
-				str = 'This clove of garlic is delicious!'
+			if (o.cname_type === CN_EGG) {
+				str = 'Ugh.  Rotten egg.';
 			} else {
+				str = 'Blecch!  Rotten food!';
+			}
+		} else {
+			if (o.cname_type === CN_FOOD_RATION) {
 				str = 'That food really hit the spot! You finish eating the food ration.';
+			} else {
+				str = 'This ' + getSymbolName(o.cname_type) + ' is delicious!'
 			}
 		}
 		_queued_msg.push(str);
