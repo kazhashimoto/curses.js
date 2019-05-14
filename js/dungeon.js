@@ -1870,8 +1870,25 @@ function DungeonLevel(win) {
 	}
 	
 	function eat_it(o) {
-		console.log('### eat_it');
-		var key = o.key;
+		var str = '';
+		o.qty--;
+		if (!o.qty) {
+			_player.inv_slot[o.key] = null;
+			o.inv = false;
+		}
+		let rotten = (getRandomInt(0,100) < 10);
+		if (rotten) {
+			str = 'Blecch!  Rotten food!';
+			// Ugh.  Rotten egg.
+		} else {
+			if (o.cname_type === CN_GARLIC) {
+				str = 'This clove of garlic is delicious!'
+			} else {
+				str = 'That food really hit the spot! You finish eating the food ration.';
+			}
+		}
+		_queued_msg.push(str);
+		_post_message = true;
 	}
 	
 	this.doEat = function(key) {
