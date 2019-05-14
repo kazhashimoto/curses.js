@@ -115,13 +115,9 @@ function Curses(tty) {
 
 	function getLineData(y) {
 		var buf = _line_buf[y].content;
-		let cursor_on = (y === _cur_y && _cursor_visible);
 		var str = '';
 		for (let x = 0; x < NCOLS; x++) {
 			let o = buf[x];
-//			if (cursor_on && x === _cur_x) {
-//				str += '<span class="cursor">';
-//			}
 			if (o.attr) {
 				str += '<span class="' + o.attr + '">';
 			}
@@ -129,9 +125,6 @@ function Curses(tty) {
 			if (o.attr) {
 				str += '</span>';
 			}
-			//if (cursor_on && x === _cur_x) {
-//				str += '</span>';
-//			}
 		}
 		return str;
 	}
