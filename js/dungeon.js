@@ -242,6 +242,7 @@ function DungeonLevel(win) {
 	}
 	
 	this.display = function(force) {
+		var sym;
 		if (force === undefined) {
 			force = false;
 		}
@@ -256,7 +257,6 @@ function DungeonLevel(win) {
 					continue;
 				}
 				let color = null;
-				let sym = ' ';
 				if (o.o_list.length > 0) {
 					let top = o.o_list[o.o_list.length - 1];
 					sym = top.sym;
