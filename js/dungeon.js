@@ -1253,7 +1253,7 @@ function DungeonLevel(win) {
 	}
 	
 	function youSeeHere(y, x, flag) {
-		var name, str;
+		var str;
 		var o_list = _map[y][x].o_list;
 		var count = countObjAt(y, x);
 		if (!count) {
@@ -1301,7 +1301,6 @@ function DungeonLevel(win) {
 	}
 	
 	function autopickup(y, x) {
-		var str;
 		var n_picked = 0;
 		var o_list = _map[y][x].o_list;
 		const pickup_types = [ OC_GOLD, OC_SCROLL, OC_POTION ];
@@ -1679,7 +1678,6 @@ function DungeonLevel(win) {
 	}
 	
 	function read_it(o) {
-		var key = o.key;
 		console.log('### read_it')
 		if (isReadable(o)) {
 			_queued_msg = [];
@@ -1793,7 +1791,6 @@ function DungeonLevel(win) {
 	
 	function drink_it(o) {
 		console.log('### drink_it');
-		var key = o.key;
 	}
 	
 	this.doDrink = function(key) {
@@ -1833,7 +1830,6 @@ function DungeonLevel(win) {
 	
 	function zap_it(o) {
 		console.log('### zap_it');
-		var key = o.key;
 	}
 	
 	this.doZap = function(key) {
@@ -2172,7 +2168,7 @@ function DungeonLevel(win) {
 	}
 	
 	function getDescriptiveName(o) {
-		var str, buc, s;
+		var str, s;
 		var enchanted = '';
 		if (o.hasOwnProperty('enchanted')) {
 			enchanted = '+' + o.enchanted + ' ';
@@ -2671,7 +2667,6 @@ function DungeonLevel(win) {
 			putLine('Not carrying anything.');
 			return false;
 		}
-		var o;
 		var exit_cmd = ((_kbd_input.state > 0 && (key === 'Escape' || key === 'Enter') )
 						|| (_kbd_input.state === 2 && key === ' '));
 		if (exit_cmd) {
@@ -2712,7 +2707,7 @@ function DungeonLevel(win) {
 	
 	function listThingsAt(y, x, flag) {
 		var count = 0;
-		var y, len;
+		var y;
 		var str;
 
 		_queued_text = [];
